@@ -859,11 +859,8 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
       doc.setFontSize(8); T('Emitida em ' + fmtD(new Date()), W-M, 11, {align:'right'});
     }
     function footer(p,n){
-      drawC(LINE); doc.setLineWidth(0.2); doc.line(M, H-16, W-M, H-16);
+      drawC(LINE); doc.setLineWidth(0.2); doc.line(M, H-9, W-M, H-9);
       doc.setFont('helvetica','normal'); doc.setFontSize(7); setC(MUTED);
-      T('Simulação sem valor de proposta. Tabela sujeita a alteração sem aviso prévio. Parcelas até o habite-se corrigidas pelo INCC;', M, H-11.5);
-      T('após o habite-se, IPCA + 1% a.m. Despesas de ITBI, escritura e registro não incluídas. Entrega prevista: 30/11/2029.', M, H-8.5);
-      doc.setFont('helvetica','bold'); setC(INK); T('Cavalcante Conexões Imobiliárias · CRECI 8699J', M, H-4.5);
       doc.setFont('helvetica','normal'); setC(MUTED); T(`Página ${p} de ${n}`, W-M, H-4.5, {align:'right'});
     }
     function sectionTitle(s,y){ doc.setFont('helvetica','bold'); doc.setFontSize(10.5); setC(INK); T(s, M, y); fillC(BLUE); doc.rect(M, y+1.6, 10, 0.8, 'F'); return y+7; }

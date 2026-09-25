@@ -47,12 +47,25 @@ header.top::after{content:"";position:absolute;left:0;bottom:-1px;width:120px;he
 .eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600}
 h1{font-family:var(--display);font-size:clamp(24px,4vw,32px);margin:4px 0 0;letter-spacing:-.01em;text-wrap:balance}
 h1 span{color:var(--brand)}
+.sem-box{display:flex;flex-direction:column;gap:8px}
+.sem-head{display:flex;justify-content:space-between;align-items:baseline;font-size:12.5px;font-weight:600;color:var(--muted)}
+.linkbtn{font:inherit;font-size:12px;font-weight:600;padding:0;border:0;background:none;color:var(--brand);text-decoration:underline;cursor:pointer}
+.sem-row,.sem-cols{display:grid;grid-template-columns:30px minmax(0,1fr) minmax(0,1.1fr) 36px;gap:8px;align-items:center}
+.sem-cols span{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:600}
+.sem-n{font-size:12.5px;font-weight:700;color:var(--muted);font-variant-numeric:tabular-nums}
+.sem-row input{padding:8px 9px;font-size:14px}
+.sem-del{padding:0;height:38px;width:36px;font-size:18px;line-height:1;color:var(--bad)}
+.sem-del:hover{background:var(--bad-soft)}
+.btn-add{align-self:flex-start;border:1.5px dashed var(--brand);color:var(--brand);background:transparent;padding:7px 12px;font-size:13px}
+.sem-empty{font-size:13px;color:var(--muted);padding:4px 0}
 .top-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
 .btn-reset{border:1.5px solid var(--brand);color:var(--brand);background:var(--surface);padding:7px 14px;font-size:13px}
 .btn-reset:hover{background:var(--brand-soft)}
 .rule-pill{display:inline-flex;gap:8px;align-items:center;background:var(--brand-soft);color:var(--brand-ink);border-radius:999px;padding:6px 14px;font-size:13px;font-weight:600}
 .grid{display:grid;grid-template-columns:minmax(0,390px) minmax(0,1fr);gap:24px;margin-top:24px;align-items:start}
-@media (max-width:900px){.grid{grid-template-columns:1fr}}
+@media (max-width:900px){.grid{grid-template-columns:minmax(0,1fr)}}
+select{text-overflow:ellipsis}
+input[type=date]{min-width:0;max-width:100%}
 .panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px}
 .panel h2{font-family:var(--display);font-size:15px;margin:0 0 14px;font-weight:600}
 .fields{display:flex;flex-direction:column;gap:14px}
@@ -110,6 +123,7 @@ details .fields{margin-top:12px}
 .cmp td:first-child{text-align:left;padding-left:0}
 .cmp td.me{font-weight:700}
 .cmp .up{color:var(--warn)} .cmp .dn{color:var(--ok)}
+.cmp tr.sub td{color:var(--muted)}
 .cmp tr.total td{border-bottom:0;font-weight:700}
 .tbl-wrap{overflow-x:auto;max-height:520px;overflow-y:auto;border:1px solid var(--line);border-radius:10px}
 table.sched{width:100%;border-collapse:collapse;font-size:13.5px;min-width:520px}
@@ -122,6 +136,7 @@ table.sched{width:100%;border-collapse:collapse;font-size:13.5px;min-width:520px
 .t-mensal{background:color-mix(in srgb,var(--seg-stanza) 16%,transparent)}
 .t-sem{background:color-mix(in srgb,var(--g3) 18%,transparent)}
 .t-banco{background:var(--brand-soft);color:var(--brand-ink)}
+.dt-m{display:none}
 .sched tr.foot td{font-weight:700;background:var(--bg)}
 .actions{display:flex;gap:10px;flex-wrap:wrap}
 button{font:inherit;font-weight:600;font-size:14px;border-radius:9px;padding:10px 16px;cursor:pointer;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
@@ -132,6 +147,49 @@ button:disabled{opacity:.55;cursor:not-allowed}
 .actions{align-items:center}
 .toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:10px;font-weight:600;font-size:14px}
 @media (prefers-reduced-motion:reduce){.bar div{transition:none}}
+/* Responsivo: celular e tablet */
+@media (max-width:600px){
+  body{font-size:14px}
+  header.top{padding-block:20px 16px}
+  .logo{width:180px}
+  .top-actions{width:100%;justify-content:space-between}
+  .panel{padding:16px}
+  .unit-card{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .tile .val{font-size:20px}
+  .actions button{width:100%}
+  input,select{font-size:16px}
+}
+@media (max-width:440px){
+  .row2{grid-template-columns:minmax(0,1fr)}
+}
+@media (max-width:380px){
+  .sem-row,.sem-cols{grid-template-columns:24px minmax(0,1fr) minmax(0,1fr) 34px;gap:6px}
+}
+@media (max-width:600px){
+  .cmp{min-width:0}
+  .cmp thead{display:none}
+  .cmp tr{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2px 10px;padding:10px 0;border-bottom:1px solid var(--line)}
+  .cmp td{border:0;padding:0;text-align:left;font-size:13.5px}
+  .cmp td:first-child{grid-column:1/-1;font-weight:600;margin-bottom:4px}
+  .cmp td[data-l]::before{content:attr(data-l);display:block;font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:600}
+  .cmp tr.total{border-bottom:0}
+  table.sched{min-width:0;font-size:12.5px}
+  .sched th:first-child,.sched td:first-child{display:none}
+  .sched th,.sched td{padding:8px 6px}
+  .sched td.r{white-space:nowrap}
+  .sched .c-dt{display:none}
+  .dt-m{display:block;font-size:11.5px;color:var(--muted);margin-top:3px}
+  .sched .tag{font-size:10.5px;padding:2px 6px;white-space:nowrap}
+  .tbl-wrap{border-radius:8px}
+  .tbl-wrap{max-height:65vh}
+}
+@media (max-width:440px){
+  .sem-cols{display:none}
+  .sem-row{grid-template-columns:26px minmax(0,1fr) 38px;grid-template-areas:"n d x" "n v x";gap:6px 8px;padding:8px 0;border-bottom:1px dashed var(--line)}
+  .sem-n{grid-area:n;align-self:start;padding-top:10px}
+  .sem-d{grid-area:d} .sem-v{grid-area:v}
+  .sem-del{grid-area:x;align-self:center}
+}
 </style>
 
 <div class="wrap">
@@ -165,14 +223,26 @@ button:disabled{opacity:.55;cursor:not-allowed}
         <hr class="sep">
         <h2 style="margin:0">Simulação</h2>
         <label>Cliente<input id="cliente" placeholder="Nome do cliente"></label>
+        <label>Valor do imóvel (negociado)
+          <input id="valorNeg" class="money" inputmode="decimal">
+          <span class="hint"><span id="valHint"></span> · <button type="button" id="btnValTab">usar valor da tabela</button></span>
+        </label>
         <label class="key">Valor financiado pelo banco
           <input id="financiado" class="money" inputmode="decimal">
           <span class="hint"><span id="finHint"></span> · <button type="button" id="btnTabela">usar valor da tabela</button></span>
         </label>
         <label>Sinal adicional voluntário (opcional)
           <input id="sinalExtra" class="money" inputmode="decimal" value="0,00">
-          <span class="hint">Soma ao ato e reduz mensais e semestrais.</span>
+          <span class="hint">Soma ao ato e reduz as mensais.</span>
         </label>
+
+        <div class="sem-box" id="semBox">
+          <div class="sem-head"><span>Parcelas semestrais</span><button type="button" class="linkbtn" id="btnSemTab">restaurar tabela</button></div>
+          <div class="sem-cols" aria-hidden="true"><span></span><span>Vencimento</span><span>Valor</span><span></span></div>
+          <div id="semList"></div>
+          <button type="button" class="btn-add" id="btnSemAdd">+ Acrescentar semestral</button>
+          <span class="hint" id="semHint">Alterações nas semestrais são compensadas nas mensais.</span>
+        </div>
 
         <details>
           <summary>Condições da tabela</summary>
@@ -181,18 +251,8 @@ button:disabled{opacity:.55;cursor:not-allowed}
               <label>Data do ato<input id="dAto" type="date" value="2026-09-30"></label>
               <label>1ª mensal<input id="dMensal" type="date" value="2026-10-30"></label>
             </div>
-            <div class="row2">
-              <label>Nº de mensais<input id="nMensais" type="number" min="1" max="120" value="34"></label>
-              <label>Nº de semestrais<input id="nSem" type="number" min="0" max="10" value="2"></label>
-            </div>
-            <div class="row2">
-              <label>1ª semestral<input id="dSem" type="date" value="2027-01-30"></label>
-              <label>Financiamento<input id="dFin" type="date" value="2026-12-30"></label>
-            </div>
-            <div class="row2">
-              <label>Limite Stanza (% do imóvel)<input id="limite" type="number" min="0" max="100" step="0.5" value="25"></label>
-              <label>INCC estimado (% a.a.)<input id="incc" type="number" min="0" max="30" step="0.1" value="0"></label>
-            </div>
+            <label>Nº de mensais<input id="nMensais" type="number" min="1" max="120" value="34"></label>
+            <label>Limite Stanza (% do imóvel)<input id="limite" type="number" min="0" max="100" step="0.5" value="25"></label>
             <span class="hint">Valores padrão conforme a tabela Viamar de setembro/2026. Parcelas até o habite-se corrigidas pelo INCC. Entrega prevista em 30/11/2029.</span>
           </div>
         </details>
@@ -229,7 +289,7 @@ button:disabled{opacity:.55;cursor:not-allowed}
         <h2>Fluxo de pagamento</h2>
         <div class="tbl-wrap">
           <table class="sched">
-            <thead><tr><th>#</th><th>Tipo</th><th>Vencimento</th><th class="r">Valor</th><th class="r" id="thCorr">Corrigido (est.)</th></tr></thead>
+            <thead><tr><th>#</th><th>Tipo</th><th class="c-dt">Vencimento</th><th class="r">Valor</th><th class="r" id="thCorr">Corrigido (est.)</th></tr></thead>
             <tbody id="schedBody"></tbody>
           </table>
         </div>
@@ -692,18 +752,65 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
       <div><small>Tipologia</small><b>—</b></div>
       <div><small>Área privativa</small><b>0 m²</b></div>
       <div><small>Posição</small><b>—</b></div>
-      <div class="full"><small>Valor total</small><b>${brl(0)}</b></div>` : `
+      <div class="full"><small>Valor de tabela</small><b>${brl(0)}</b></div>` : `
       <div><small>Unidade</small><b>${x.u}</b></div>
       <div><small>Andar</small><b>${andar(x.u)}</b></div>
       <div><small>Tipologia</small><b>${x.q} quartos</b></div>
       <div><small>Área privativa</small><b>${x.area.toLocaleString('pt-BR')} m²</b></div>
       <div><small>Posição</small><b>${x.pos}</b></div>
-      <div class="full"><small>Valor total</small><b>${brl(x.v)}</b></div>`;
+      <div class="full"><small>Valor de tabela</small><b>${brl(x.v)}</b></div>`;
+    $('valorNeg').value = fmtIn(x.v);
     $('financiado').value = fmtIn(x.fin);
+    finManual = false;
+    sems = null;
     calc();
   }
   $('unidade').addEventListener('change', onUnit);
-  $('btnTabela').addEventListener('click', ()=>{ $('financiado').value = fmtIn(cur().fin); calc(); });
+  let finManual = false;
+  // Semestrais: null = segue a tabela; lista = editada pelo corretor
+  let sems = null, semCur = [], semDefault = 0;
+  const SEM_D0 = '2027-01-30';
+  const isoD = d => d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+  function renderSems(list){
+    const box = $('semList');
+    if (box.children.length !== list.length || (list.length===0) !== !!box.querySelector('.sem-empty')){
+      box.innerHTML = list.length ? list.map((s,i)=>`<div class="sem-row" data-i="${i}"><span class="sem-n">${i+1}ª</span><input type="date" class="sem-d" id="semD${i}" aria-label="Vencimento da semestral ${i+1}"><input class="money sem-v" id="semV${i}" inputmode="decimal" aria-label="Valor da semestral ${i+1}"><button type="button" class="sem-del" aria-label="Remover semestral ${i+1}" title="Remover">×</button></div>`).join('')
+        : '<div class="sem-empty">Nenhuma parcela semestral.</div>';
+    }
+    list.forEach((s,i)=>{
+      const d = $('semD'+i), v = $('semV'+i);
+      if (d && document.activeElement!==d) d.value = s.d;
+      if (v && document.activeElement!==v) v.value = fmtIn(s.v);
+    });
+  }
+  const semEdit = () => { if (!sems) sems = semCur.map(s=>({...s})); };
+  $('semList').addEventListener('input', e=>{
+    const row = e.target.closest('.sem-row'); if (!row) return; const i = +row.dataset.i;
+    semEdit();
+    if (e.target.classList.contains('sem-v')) sems[i].v = parseMoney(e.target.value);
+    if (e.target.classList.contains('sem-d') && e.target.value) sems[i].d = e.target.value;
+  });
+  $('semList').addEventListener('focusout', e=>{ if (e.target.classList.contains('sem-v')) e.target.value = fmtIn(parseMoney(e.target.value)); });
+  $('semList').addEventListener('focusin', e=>{ if (e.target.classList.contains('sem-v')) e.target.select(); });
+  $('semList').addEventListener('click', e=>{
+    const b = e.target.closest('.sem-del'); if (!b) return;
+    semEdit(); sems.splice(+b.closest('.sem-row').dataset.i, 1); calc();
+  });
+  $('btnSemAdd').addEventListener('click', ()=>{
+    semEdit();
+    const last = sems.slice().sort((a,b)=>a.d<b.d?-1:1).pop();
+    const d = last ? isoD(addM(dt(last.d),6)) : SEM_D0;
+    sems.push({d, v: last ? last.v : semDefault});
+    calc();
+    const i = sems.length-1; const v = $('semV'+i); if (v) v.focus();
+  });
+  $('btnSemTab').addEventListener('click', ()=>{ sems = null; calc(); });
+  const ratio = () => { const xt = cur(), vn = parseMoney($('valorNeg').value); return xt.v>0 && vn>0 ? vn/xt.v : 1; };
+  $('btnTabela').addEventListener('click', ()=>{ $('financiado').value = fmtIn(finRef()); finManual = false; calc(); });
+  $('btnValTab').addEventListener('click', ()=>{ $('valorNeg').value = fmtIn(cur().v); if (!finManual) $('financiado').value = fmtIn(cur().fin); calc(); });
+  $('financiado').addEventListener('input', ()=>{ finManual = true; });
+  const finRef = () => { const xt = cur(), rr = ratio(); return rr===1 ? xt.fin : r2(xt.v*rr*Math.round(xt.fin/xt.v*10000)/10000); };
+  $('valorNeg').addEventListener('input', ()=>{ if (!finManual && cur().u) $('financiado').value = fmtIn(finRef()); });
   document.querySelectorAll('input.money').forEach(el=>{
     el.addEventListener('blur',()=>{ el.value = fmtIn(parseMoney(el.value)); calc(); });
     el.addEventListener('focus',()=>el.select());
@@ -713,12 +820,18 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
 
   let lastState = null;
   function calc(){
-    const x = cur(); const V = x.v;
+    const xt = cur(); const rr = ratio();
+    // Valor negociado: mantém os percentuais da tabela (80% / 2% / 12% / 6%)
+    const p4 = v => xt.v>0 ? Math.round(v/xt.v*10000)/10000 : 0;
+    const Vn = r2(xt.v*rr);
+    const x = rr===1 ? xt : {...xt, v: Vn, fin: r2(Vn*p4(xt.fin)), ato: r2(Vn*p4(xt.ato)), mens: Vn*p4(xt.mens*TAB.nM)/TAB.nM, sem: Vn*p4(xt.sem*TAB.nS)/TAB.nS};
+    const V = x.v;
+    $('semBox').hidden = !x.u;
     if (!x.u){
       lastState = null;
       if (typeof btnPdf !== 'undefined' && btnPdf) btnPdf.disabled = true;
       $('alert').innerHTML = '<div class="alert info">Selecione uma unidade para começar a simulação.</div>';
-      $('finHint').textContent = '';
+      $('finHint').textContent = ''; $('valHint').textContent = '';
       ['tSinal','tStanza','tBanco'].forEach(id=>$(id).textContent = brl(0));
       ['tSinalSub','tStanzaSub','tBancoSub'].forEach(id=>$(id).textContent = '—');
       ['bBank','bStanza','bSinal'].forEach(id=>$(id).style.width = '0%');
@@ -733,13 +846,11 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
     const extra = Math.max(0, parseMoney($('sinalExtra').value));
     const limPct = Math.max(0, parseFloat($('limite').value)||0);
     const nM = Math.max(1, Math.round(+$('nMensais').value||1));
-    const nS = Math.max(0, Math.round(+$('nSem').value||0));
-    const incc = Math.max(0, parseFloat($('incc').value)||0);
+    const incc = 0; // correção INCC não é projetada na simulação
     const im = Math.pow(1+incc/100,1/12)-1;
     const dAto = dt($('dAto').value) || new Date(2026,8,30,12);
     const dM = dt($('dMensal').value) || addM(dAto,1);
-    const dS = dt($('dSem').value) || addM(dAto,4);
-    const dF = dt($('dFin').value) || addM(dAto,3);
+    const dF = dt('2026-12-30');
     $('rulePill').textContent = `Stanza parcela até ${pct(limPct)} · excedente vira sinal no ato`;
 
     // Regra Stanza
@@ -754,14 +865,36 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
     else { ato = r2(Math.min(parcBase, x.ato)); msBase = r2(parcBase - ato); }
     const extraUsado = r2(Math.min(extra, msBase));
     const resto = r2(msBase - extraUsado);               // mensais + semestrais
-    const shareM = nS>0 ? tabM/(tabM+tabS) : 1;
-    const totM = r2(resto*shareM), totS = r2(resto-totM);
-    const vM = r2(totM/nM), vS = nS>0 ? r2(totS/nS) : 0;
+    let semL, totS;
+    if (!sems){
+      const shareS = (tabM+tabS)>0 ? tabS/(tabM+tabS) : 0;
+      totS = r2(resto*shareS);
+      const d0 = dt(SEM_D0), n = TAB.nS, each = r2(totS/n);
+      semL = Array.from({length:n},(_,j)=>({d: isoD(addM(d0,6*j)), v: j===n-1 ? r2(totS - each*(n-1)) : each}));
+    } else {
+      semL = sems.map(s=>({d:s.d, v:Math.max(0, r2(s.v||0))}));
+      totS = r2(semL.reduce((a,s)=>a+s.v,0));
+    }
+    semCur = semL; semDefault = r2(x.sem); renderSems(semL);
+    $('btnSemTab').hidden = !sems;
+    let totM = r2(resto - totS), semExcesso = 0;
+    if (totM < 0){ semExcesso = -totM; totM = 0; }
+    const nS = semL.length, vS = nS ? semL[0].v : 0, semIguais = semL.every(s=>Math.abs(s.v-vS)<0.01);
+    const semOrd = semL.map(s=>({d:dt(s.d)||addM(dAto,4), v:s.v})).sort((a,b)=>a.d-b.d);
+    const dS = semOrd.length ? semOrd[0].d : null;
+    const semTxt = nS===0 ? '' : (semIguais ? `${nS}x ${brl(vS)}` : `${nS} semestrais (${brl(totS)})`);
+    const vM = r2(totM/nM);
     const atoTotal = r2(ato + sinalObrig + extraUsado);
     const parcelado = r2(totM + totS);
 
     // Alertas
     const al = [];
+    const dV = r2(V - xt.v);
+    $('valHint').textContent = Math.abs(dV)<0.01 ? `Igual à tabela (${brl(xt.v)})` : `Tabela ${brl(xt.v)} · ${dV<0?'desconto':'acréscimo'} de ${brl(Math.abs(dV))} (${pct(Math.abs(dV)/xt.v*100)})`;
+    if (semExcesso>0) al.push(['bad',`As semestrais passam do saldo parcelado com a Stanza em <b>${brl(semExcesso)}</b>. Reduza os valores ou remova uma semestral.`]);
+    else if (sems && totM>0 && Math.abs(totS - r2(resto*(tabS/(tabM+tabS))))>=0.01) al.push(['info',`Semestrais editadas: ${semTxt}. As mensais foram recalculadas para ${nM}x ${brl(vM)}.`]);
+    if (parseMoney($('valorNeg').value) <= 0) al.push(['bad','Informe o valor do imóvel. Enquanto estiver vazio, a simulação usa o valor da tabela.']);
+    else if (Math.abs(dV)>=0.01) al.push(['info',`Valor negociado de <b>${brl(V)}</b>, com ${dV<0?'desconto':'acréscimo'} de ${brl(Math.abs(dV))} (${pct(Math.abs(dV)/xt.v*100)}) sobre a tabela. Ato, mensais, semestrais e financiamento de referência foram recalculados na mesma proporção.`]);
     const finPct = V? F/V*100 : 0;
     if (F>V) al.push(['bad','O valor financiado é maior que o valor do imóvel. Revise o valor.']);
     else if (F<0) al.push(['bad','O valor financiado não pode ser negativo.']);
@@ -779,7 +912,7 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
     $('tSinal').textContent = brl(atoTotal);
     $('tSinalSub').textContent = `${pct(atoTotal/V*100)} · ato ${brl(ato)}` + (sinalObrig>0?` + sinal ${brl(sinalObrig)}`:'') + (extraUsado>0?` + voluntário ${brl(extraUsado)}`:'');
     $('tStanza').textContent = brl(parcelado);
-    $('tStanzaSub').textContent = `${nM}x ${brl(vM)}` + (nS>0?` + ${nS}x ${brl(vS)}`:'');
+    $('tStanzaSub').textContent = `${nM}x ${brl(vM)}` + (semTxt?` + ${semTxt}`:'');
     $('tBanco').textContent = brl(F);
     $('tBancoSub').textContent = `${pct(finPct)} do imóvel · ${fmtD(dF)}`;
 
@@ -789,14 +922,16 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
 
     // Comparativo
     const diff = (a,b) => { const d=r2(b-a); if (Math.abs(d)<0.01) return '<span>—</span>'; return `<span class="${d>0?'up':'dn'}">${d>0?'+':'−'}${brl(Math.abs(d))}</span>`; };
+    const tM0 = xt.mens*TAB.nM, tS0 = xt.sem*TAB.nS;
     const rows = [
-      ['Ato + sinal', x.ato, atoTotal],
-      [`Mensais (${TAB.nM}x ${brl(x.mens)} → ${nM}x ${brl(vM)})`, tabM, totM],
-      [`Semestrais (${TAB.nS}x ${brl(x.sem)} → ${nS}x ${brl(vS)})`, tabS, totS],
-      ['Financiamento bancário', x.fin, F],
+      ['Valor do imóvel', xt.v, V],
+      ['Ato + sinal', xt.ato, atoTotal],
+      [`Mensais (${TAB.nM}x ${brl(xt.mens)} → ${nM}x ${brl(vM)})`, tM0, totM],
+      [`Semestrais (${TAB.nS}x ${brl(xt.sem)} → ${semTxt||'nenhuma'})`, tS0, totS],
+      ['Financiamento bancário', xt.fin, F],
     ];
-    $('cmpBody').innerHTML = rows.map(r=>`<tr><td>${r[0]}</td><td>${brl(r[1])}</td><td class="me">${brl(r[2])}</td><td>${diff(r[1],r[2])}</td></tr>`).join('')
-      + `<tr class="total"><td>Total</td><td>${brl(x.ato+tabM+tabS+x.fin)}</td><td class="me">${brl(atoTotal+totM+totS+F)}</td><td></td></tr>`;
+    $('cmpBody').innerHTML = rows.map((r,ri)=>`<tr${ri===0?' class="sub"':''}><td>${r[0]}</td><td data-l="Tabela">${brl(r[1])}</td><td class="me" data-l="Simulação">${brl(r[2])}</td><td data-l="Diferença">${diff(r[1],r[2])}</td></tr>`).join('')
+      + `<tr class="total"><td>Total</td><td data-l="Tabela">${brl(xt.ato+tM0+tS0+xt.fin)}</td><td class="me" data-l="Simulação">${brl(atoTotal+totM+totS+F)}</td><td data-l=""></td></tr>`;
 
     // Fluxo
     const items = [];
@@ -804,7 +939,7 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
     if (sinalObrig>0) items.push({t:'Sinal (excedente)', c:'t-sinal', d:dAto, v:sinalObrig});
     if (extraUsado>0) items.push({t:'Sinal voluntário', c:'t-sinal', d:dAto, v:extraUsado});
     for (let i=0;i<nM;i++){ const v = i===nM-1 ? r2(totM - vM*(nM-1)) : vM; if (totM>0) items.push({t:`Mensal ${i+1}/${nM}`, c:'t-mensal', d:addM(dM,i), v}); }
-    for (let j=0;j<nS;j++){ const v = j===nS-1 ? r2(totS - vS*(nS-1)) : vS; if (totS>0) items.push({t:`Semestral ${j+1}/${nS}`, c:'t-sem', d:addM(dS,6*j), v}); }
+    semOrd.forEach((s,j)=>{ if (s.v>0) items.push({t:`Semestral ${j+1}/${nS}`, c:'t-sem', d:s.d, v:s.v}); });
     items.push({t:'Financiamento', c:'t-banco', d:dF, v:F, bank:true});
     items.sort((a,b)=>(!!a.bank - !!b.bank) || (a.d-b.d));
     const showC = incc>0; $('thCorr').hidden = !showC;
@@ -813,13 +948,14 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
       tot += it.v;
       const k = Math.max(0, monthsBetween(dAto,it.d));
       const vc = it.bank ? null : r2(it.v*Math.pow(1+im,k)); if (vc!==null) totC += vc; it.vc = vc;
-      return `<tr><td>${i+1}</td><td><span class="tag ${it.c}">${it.t}</span></td><td>${fmtD(it.d)}</td><td class="r">${brl(it.v)}</td>${showC?`<td class="r">${vc===null?'—':brl(vc)}</td>`:''}</tr>`;
+      return `<tr><td>${i+1}</td><td><span class="tag ${it.c}">${it.t}</span><small class="dt-m">${fmtD(it.d)}</small></td><td class="c-dt">${fmtD(it.d)}</td><td class="r">${brl(it.v)}</td>${showC?`<td class="r">${vc===null?'—':brl(vc)}</td>`:''}</tr>`;
     });
-    html.push(`<tr class="foot"><td></td><td>Total</td><td></td><td class="r">${brl(tot)}</td>${showC?`<td class="r">${brl(totC)} <span class="note">(sem banco)</span></td>`:''}</tr>`);
+    html.push(`<tr class="foot"><td></td><td>Total</td><td class="c-dt"></td><td class="r">${brl(tot)}</td>${showC?`<td class="r">${brl(totC)} <span class="note">(sem banco)</span></td>`:''}</tr>`);
     $('schedBody').innerHTML = html.join('');
 
 
-    lastState = {x, V, F, E, finPct, limPct, incc, showC, ato, sinalObrig, extraUsado, atoTotal, parcelado, nM, vM, totM, nS, vS, totS, dAto, dM, dS, dF, items, tot, totC, cli: $('cliente').value.trim()};
+    lastState = {x, xt, V, F, E, finPct, limPct, incc, showC, ato, sinalObrig, extraUsado, atoTotal, parcelado, nM, vM, totM, nS, vS, totS, semIguais, semTxt, dAto, dM, dS, dF, items, tot, totC, cli: $('cliente').value.trim()};
+    if (semExcesso>0){ lastState = null; if (typeof btnPdf !== 'undefined' && btnPdf) btnPdf.disabled = true; }
   }
 
   function toast(msg){ const t=document.createElement('div'); t.className='toast'; t.setAttribute('role','status'); t.textContent=msg; document.body.appendChild(t); setTimeout(()=>t.remove(),2200); }
@@ -872,13 +1008,12 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
     fillC(SOFT); drawC(LINE); doc.setLineWidth(0.2); doc.roundedRect(M, y, W-2*M, 27, 2, 2, 'FD');
     const cells = [
       ['Cliente', S.cli || '—'], ['Unidade', `${x.u} · Torre B (Orla)`], ['Andar', andar(x.u)], ['Tipologia', `${x.q} quartos`],
-      ['Área privativa', `${x.area.toLocaleString('pt-BR')} m²`], ['Posição', x.pos], ['Valor do imóvel', brlP(S.V)]
-    ];
+      ['Área privativa', `${x.area.toLocaleString('pt-BR')} m²`], ['Posição', x.pos]].concat(Math.abs(S.V-S.xt.v)>=0.01 ? [['Valor de tabela', brlP(S.xt.v)], ['Valor negociado', brlP(S.V)]] : [['Valor do imóvel', brlP(S.V)]]);
     const cw = (W-2*M)/4;
     cells.forEach((c,i)=>{
       const cx = M + 4 + (i%4)*cw, cy = y + 7 + Math.floor(i/4)*12;
       doc.setFont('helvetica','normal'); doc.setFontSize(7); setC(MUTED); T(c[0].toUpperCase(), cx, cy);
-      doc.setFont('helvetica','bold'); doc.setFontSize(i===6?10.5:9.5); setC(i===6?BLUE:INK);
+      doc.setFont('helvetica','bold'); doc.setFontSize(i===cells.length-1?10.5:9.5); setC(i===cells.length-1?BLUE:INK);
       T(doc.splitTextToSize(pdfTxt(c[1]), cw-6)[0], cx, cy+5);
     });
     y += 35;
@@ -887,7 +1022,7 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
     y = sectionTitle('Resumo da simulação', y);
     const cards = [
       ['ATO + SINAL', brlP(S.atoTotal), `${pdfTxt(pct(S.atoTotal/S.V*100))} do imóvel · ${fmtD(S.dAto)}`, G1],
-      ['PARCELADO STANZA', brlP(S.parcelado), pdfTxt(`${S.nM}x ${brl(S.vM)}` + (S.nS>0&&S.totS>0?` + ${S.nS}x ${brl(S.vS)}`:'')), G2],
+      ['PARCELADO STANZA', brlP(S.parcelado), pdfTxt(`${S.nM}x ${brl(S.vM)}` + (S.semTxt&&S.totS>0?` + ${S.semTxt}`:'')), G2],
       ['FINANCIAMENTO', brlP(S.F), `${pdfTxt(pct(S.finPct))} do imóvel · ${fmtD(S.dF)}`, BLUE],
     ];
     const gw = 4, kw = (W-2*M-2*gw)/3;
@@ -924,7 +1059,7 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
     if (S.sinalObrig>0) rowsC.push(['Sinal (excedente de 25%)','1', brlP(S.sinalObrig), brlP(S.sinalObrig), fmtD(S.dAto)]);
     if (S.extraUsado>0) rowsC.push(['Sinal voluntário','1', brlP(S.extraUsado), brlP(S.extraUsado), fmtD(S.dAto)]);
     if (S.totM>0) rowsC.push(['Mensais', String(S.nM), brlP(S.vM), brlP(S.totM), `a partir de ${fmtD(S.dM)}`]);
-    if (S.totS>0) rowsC.push(['Semestrais', String(S.nS), brlP(S.vS), brlP(S.totS), `a partir de ${fmtD(S.dS)}`]);
+    if (S.totS>0) rowsC.push(['Semestrais', String(S.nS), S.semIguais ? brlP(S.vS) : 'variável', brlP(S.totS), `a partir de ${fmtD(S.dS)}`]);
     rowsC.push(['Financiamento associativo','1', brlP(S.F), brlP(S.F), fmtD(S.dF)]);
     y = drawTable(cols, rowsC, y, ['Total','','', brlP(S.atoTotal+S.totM+S.totS+S.F),'']);
     y += 6;
